@@ -69,9 +69,15 @@
                                 </td>
                                 <td> {{$product->category->name}}</td>
                                 <td>
-                                    <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#modelId">
+
+
+
+                                         <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#modelId">
                                         Edit
-                                      </button>
+                                        </button>
+
+
+
                                     <form id="senddelete"  action="{{ route('products.destroy',$product->id) }}" method="post">
                                         @csrf
                                         @method("DELETE")

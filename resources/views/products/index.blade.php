@@ -62,7 +62,7 @@
                                     <td>{{$product->category->name}}</td>
                                     <td>{{$product->quantity}}</td>
                                     <td>{{$product->size}} <strong>ml</strong> </td>
-                                    <td>{{$product->selling_price}}</td>
+                                    <td>{{$product->selling_price}} <strong >Ksh </strong>  </td>
                                     <td>{{$product->tax}}</td>
                                     <td>
                                         @if ( ($product->quantity) > 10 )

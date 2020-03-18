@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Wines | Spirits</title>
+  <title> Wines | Spirits</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -19,6 +19,7 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{asset('asset/dist/css/skins/_all-skins.min.css')}}">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesnt work if you view the page via file:// -->
@@ -49,19 +50,14 @@
   <!-- /.content-wrapper -->
 
   <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
-    </div>
-    <strong>Copyright &copy; 2019 </strong> All rights
+
+    <strong>Copyright &copy; {{ date("Y", time() ) }} </strong> All rights
     reserved.
   </footer>
 
 
 
 
-  <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
@@ -100,5 +96,40 @@
           })
         })
       </script>
+      <script>
+
+
+
+            $(document).ready(()=>{
+
+                $("#newAnalysis").submit((e)=>{
+                   // e.preventDefault();
+                    var re = confirm("Are you sure you want to start new stock analysis") ;
+                    if(re){
+                        return  ;
+                    }else{
+                        return false ;
+                    }
+
+                })
+
+            });
+
+    </script>
+    <script>
+        $(
+
+            $("#senddeletec").submit((e)=>{
+               // e.preventDefault();
+                var conf = confirm("Are you sure you want to delete  this  category") ;
+                if(conf){
+                    return true ;
+                }else{
+                    return false ;
+                }
+            })
+        )
+    </script>
+
 </body>
 </html>

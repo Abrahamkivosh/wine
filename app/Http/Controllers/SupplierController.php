@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class SupplierController extends Controller
@@ -16,7 +17,7 @@ class SupplierController extends Controller
     public function index()
     {
         $suppliers = Supplier::all();
-        return view('suppliers.index',compact('suppliers'));
+        return view('suppliers.index', compact('suppliers'));
     }
 
     /**
@@ -39,21 +40,20 @@ class SupplierController extends Controller
     {
         request()->validate(array(
             'name' => 'required',
-            'phone' =>'required',
-            'email' =>"required|email"
+            'phone' => 'required',
+            'email' => "required|email"
         ));
         $supplier = new Supplier();
-        $supplier->name = $request->name ;
-        $supplier->phone = $request->phone ;
-        $supplier->email = $request->email ;
-        if ( $supplier->save() ) {
+        $supplier->name = $request->name;
+        $supplier->phone = $request->phone;
+        $supplier->email = $request->email;
+        if ($supplier->save()) {
             # code...
-            return redirect()->route('suppliers.index')->with('success',"SUpplier added to system") ;
+            return redirect()->route('suppliers.index')->with('success', "SUpplier added to system");
         } else {
             # code...
-            return back()->with('error',"Error occurred please try again")  ;
+            return back()->with('error', "Error occurred please try again");
         }
-
     }
 
     /**
@@ -65,7 +65,7 @@ class SupplierController extends Controller
     public function show($id)
     {
         $supplier = Supplier::findOrfail($id);
-        return view('suppliers.show',compact('supplier'));
+        return view('suppliers.show', compact('supplier'));
     }
 
     /**
@@ -90,8 +90,8 @@ class SupplierController extends Controller
     {
         request()->validate(array(
             'name' => 'required|string',
-            'phone' =>'numeric|required',
-            'email'=>'email|required'
+            'phone' => 'numeric|required',
+            'email' => 'email|required'
         ));
 
         $supplier = Supplier::findOrfail($id);
@@ -100,17 +100,14 @@ class SupplierController extends Controller
         $supplier->email = $request->email;
         $supplier->save();
 
-        if ($supplier){
+        if ($supplier) {
 
-            $request->session()->flash('success','Supplier detials updated');
+            $request->session()->flash('success', 'Supplier detials updated');
             return back();
-
         } else {
-            $request->session()->flash('error','Error occured please try again');
+            $request->session()->flash('error', 'Error occured please try again');
             return back();
         }
-
-
     }
 
     /**
@@ -121,11 +118,17 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
-        $supplier = Supplier::findOrfail($id);
-        $supplier->delete() ;
+        if (
+            Auth::user()->isAdmin
+        ) {
+            $supplier = Supplier::findOrfail($id);
+            $supplier->delete();
+            Session::flash('success', "Deleted successfully");
+        } else {
+            Session::flash('error', "You do not have privilagies to delete Supplier");
+        }
 
-    Session::flash('success', "Deleted successfully");
-    return redirect()->route('suppliers.index') ;
 
+        return redirect()->route('suppliers.index');
     }
 }

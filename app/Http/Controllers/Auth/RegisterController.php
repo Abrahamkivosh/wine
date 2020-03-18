@@ -23,6 +23,12 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    //override
+
+    public function showRegistrationForm()
+    {
+        return view('employees.create');
+    }
 
     /**
      * Where to redirect users after registration.
@@ -38,7 +44,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth');
     }
 
     /**
@@ -52,6 +58,8 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone'=>['required','numeric'],
+            'isAdmin'=>['nullable','boolean'] ,
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -67,6 +75,8 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phone'=>$data['phone'],
+            'isAdmin'=>$data['isAdmin'],
             'password' => Hash::make($data['password']),
         ]);
     }

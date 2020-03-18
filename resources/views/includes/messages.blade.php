@@ -1,4 +1,6 @@
-@if(count($errors) > 0)
+<span class=" position-relative" id="message" >
+
+    @if(count($errors) > 0)
     @foreach($errors->all() as $error)
         <div class="alert alert-danger alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -13,7 +15,7 @@
         <h4><i class="icon fa fa-check"></i> Alert!</h4>
         {{ session('success')}}
     </div>
-    
+
 @endif
 @if(session('error'))
     <div class="alert alert-danger alert-dismissible">
@@ -22,3 +24,17 @@
         {{ session('error')}}
     </div>
 @endif
+
+</span>
+
+
+<script>
+    function flash(){
+        document.getElementById("message").style.animationDuration = "2s";
+        document.getElementById('message').style.display = "none";
+
+    }
+
+    setTimeout(flash, 6400);
+
+</script>

@@ -23,7 +23,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Company Employees
                     <span class="" style=" margin-left= '100px ;'">
-                        <a name="" id="" class="btn btn-primary" href=" {{ route('suppliers.create') }} " role="button">
+                        <a name="" id="" class="btn btn-primary" href=" {{ route('employee.create') }} " role="button">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add Employee</a></span>
                 </h3>
 
@@ -43,7 +43,8 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Phone</th>
-                            {{-- <th>Actions</th> --}}
+                            <th>Type </th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,12 +56,29 @@
                             <td>{{$employee->name}}</td>
                             <td>{{$employee->email}}</td>
                             <td>{{$employee->phone}}</td>
+                            <td>
+                                @switch( $employee ->isAdmin )
+                                    @case(0)
+                                        <span class=" text text-info" > <i class="fa fa-user" aria-hidden="true"></i> User </span>
+                                        @break
+                                    @case(1)
+                                        <span class=" text text-warning"  >
+                                            <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                            Administrator
+                                        </span>
+                                        @break
+                                    @default
 
-                            {{-- <td>
-                                <a class="btn btn-primary" href="{{ route('suppliers.show',$supplier->id) }}">View More
-                                     <i class="fa fa-eye" aria-hidden="true"></i>
-                                </a>
-                            </td> --}}
+                                @endswitch
+                            </td>
+
+                            <td>
+                                <form action="{{ route('employees.delete',$employee->id)  }}" method="post">
+                                    @csrf
+
+                                    <button type="submit" class="btn btn-danger"> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                                </form>
+                            </td>
 
 
                         </tr>

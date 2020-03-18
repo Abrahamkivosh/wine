@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Product;
 use App\Supplier;
+use App\User;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -12,6 +13,7 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        // $this->authorizeResource( Product::class,'products' );
     }
     /**
      * Display a listing of the resource.
@@ -31,6 +33,7 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $this->authorize(User::class,'create');
        $suppliers = Supplier::all();
        $categories = Category::all();
         return view('products.create', compact('suppliers','categories') );
@@ -44,6 +47,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize(User::class,'create');
         request()->validate(array(
             'name' => 'required',
             'size' =>"required" ,
@@ -95,9 +99,10 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        $product = Product::findOrfail($id);
+        $this->authorize('update',$product);
+        $product = Product::findOrfail($product->id);
 
     }
 
@@ -108,8 +113,9 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
+        $this->authorize('update',$product);
         request()->validate(array(
             'name' => 'required',
             'size' =>"required" ,
@@ -117,7 +123,7 @@ class ProductController extends Controller
             'buying_price' =>"required",
             'selling_price' =>"required"
         ));
-        $product = Product::findOrfail($id);
+        $product = Product::findOrfail($product->id);
         $product->name = $request->input('name') ;
         $product->size = $request->input('size') ;
         $product->quantity = $request->input('quantity') ;
@@ -145,9 +151,10 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        $product = Product::findOrfail($id);
+        $this->authorize('delete',$product);
+        $product = Product::findOrfail($product->id);
         $del = $product->delete() ;
         if ( $del ) {
             # code...

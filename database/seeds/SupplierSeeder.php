@@ -21,7 +21,7 @@ class SupplierSeeder extends Seeder
         //     'remember_token' => Str::random(10)
 
         // ]);
-        factory(App\User::class,3)->create();
+
         factory(App\Supplier::class,10)->create();
     }
 }
