@@ -20,7 +20,7 @@ class UserTableSeeder extends Seeder
             'phone'=>'0707585566',
             'isAdmin'=> '1',
             'email_verified_at' => now(),
-             'password' =>  bcrypt('@kivosh99@'),
+             'password' =>  bcrypt('12345678'),
             'remember_token' => Str::random(10),
             ]
         );
