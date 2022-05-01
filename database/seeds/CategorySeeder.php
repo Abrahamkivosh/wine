@@ -1,5 +1,6 @@
 <?php
-
+namespace Database\Seeders;
+use App\Category;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
@@ -13,6 +14,6 @@ class CategorySeeder extends Seeder
     {
 
 
-        factory(App\Category::class,10)->create();
+        Category::factory(10)->create();
     }
 }

@@ -1,5 +1,6 @@
 <?php
-
+namespace Database\Seeders;
+use App\Cost;
 use Illuminate\Database\Seeder;
 
 class CostSeeder extends Seeder
@@ -11,6 +12,6 @@ class CostSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Cost::factory(20)->create();
     }
 }

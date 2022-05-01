@@ -23,10 +23,10 @@ class CreateProductsTable extends Migration
             $table->double('tax', 15, 8)->nullable();
             $table->integer('supplier_id')->unsigned();
             $table->integer('category_id')->unsigned();
-            $table->foreign('supplier_id')->references('id')->on('suppliers')
-            ->onDelete('cascade');
-            $table->foreign('category_id')->references('id')->on('categories')
-            ->onDelete('cascade');
+            // $table->foreign('supplier_id')->references('id')->on('suppliers')
+            // ->onDelete('cascade');
+            // $table->foreign('category_id')->references('id')->on('categories')
+            // ->onDelete('cascade');
 
 
 

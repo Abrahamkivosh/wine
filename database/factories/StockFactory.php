@@ -1,34 +1,48 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use App\Stock;
-use Faker\Generator as Faker;
+use App\Product;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Stock::class, function (Faker $faker) {
-    return [
-        'name'=> function ()
-        {
-           return App\Product::all()->pluck('name') ->random() ;
-        },
-        'slug' => function ()
-        {
-           return App\Product::all()->pluck('id')->random() ;
-        },
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Stock>
+ */
+class StockFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition()
+    {
 
-        'quantity'=>function ()
-        {
-           return App\Product::all()->pluck('quantity')->random() ;
-        },
-        'buying_price'=>function ()
-        {
-           return App\Product::all()->pluck('buying_price')->random() ;
-        },
-        'selling_price'=>function ()
-        {
-           return App\Product::all()->pluck('selling_price')->random() ;
-        },
+            return [
+                'name'=> function ()
+                {
+                   return Product::all()->pluck('name') ->random() ;
+                },
+                'slug' => function ()
+                {
+                   return Product::all()->pluck('id')->random() ;
+                },
+
+                'quantity'=>function ()
+                {
+                   return Product::all()->pluck('quantity')->random() ;
+                },
+                'buying_price'=>function ()
+                {
+                   return Product::all()->pluck('buying_price')->random() ;
+                },
+                'selling_price'=>function ()
+                {
+                   return Product::all()->pluck('selling_price')->random() ;
+                },
 
 
-    ];
-});
+
+        ];
+    }
+}
