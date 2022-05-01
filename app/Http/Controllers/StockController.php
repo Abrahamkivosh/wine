@@ -6,7 +6,7 @@ use App\Cost;
 use App\Http\Resources\Stock;
 use App\Product;
 use App\Stock as AppStock;
-use App\User;
+use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
